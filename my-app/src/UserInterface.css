@@ -1,0 +1,136 @@
+/*css file for the user interface page*/
+
+/*create the background image of the highway and cities*/
+body {
+  margin: 0;
+  padding: 0;
+  background: url('future-cities-shanghai-yanan-expressway.jpg') no-repeat center center fixed;
+  background-size: cover;
+  font-family: Arial, sans-serif;
+
+  /* position cues for the elements on the body*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* creating the application space on the page for all elements - city input, tree choice, etc...*/
+.container {
+  padding: 20px;
+  max-width: 800px;
+  width: 100%;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/*changing the color of the title*/
+h1 {
+  color: orange;
+}
+
+/* styling for the description box on usage of the application*/
+.description-box {
+  margin-bottom: 20px;
+}
+
+/*styling for the input boxes for the city names*/
+.inputs-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+/* styling for the input boxes, making them smaller*/
+.input-group {
+  width: 35%;
+  position: relative;
+}
+
+/* styling for the overall input fields */
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* lining up each of the boxes */
+.input-group.left {
+  margin-left: 20px;
+  text-align: left;
+}
+
+.input-group.right {
+  margin-right: 40px;
+  text-align: left;
+}
+
+/* calculate button styling */
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+}
+
+/* style for the results box */
+.result-container {
+  border: 1px solid orange;
+  border-radius: 4px;
+  padding: 20px;
+  background-color: orange;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* styling for results box content */
+.result-box {
+  width: 100%;
+  min-height: 100px;
+  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 4px;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* styling for the tree choice */
+.dropdown-container {
+  margin-bottom: 20px;
+}
+
+/* styling for the dropdown choices */
+.dropdown-container select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* styling for the error handling messages */
+.error-message {
+  color: red;
+  font-size: 12px;
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  width: 100%;
+  text-align: left;
+}
+
+/*styling for the run time text under results */
+.run-time {
+  font-size: 12px;
+  color: #666;
+}
