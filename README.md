@@ -14,3 +14,4 @@
  ## Running the front end
 - To run the frontend, go to the terminal on pycharm and navigate to the "my-app" directory
 - run the command "npm start" and you should be directed to a url that runs the frontend
+
