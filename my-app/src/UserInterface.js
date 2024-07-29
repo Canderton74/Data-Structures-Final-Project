@@ -1,40 +1,43 @@
 // creating the actual page for the user interface
 
 import React, { useState } from 'react';
+import axios from 'axios';
 import './UserInterface.css';
 
+//formatting/React knowledge based on Cole's work at Boats Group this summer as an intern
 //creating the UserInterface object
 const UserInterface = () => {
-  const [input1, setInput1] = useState('');
-  const [input2, setInput2] = useState('');
+  const [city1, setCity1] = useState('');
+  const [city2, setCity2] = useState('');
   const [result, setResult] = useState('');
-  const [dropdownValue, setDropdownValue] = useState('Option1');
-  const [errors, setErrors] = useState({ input1: '', input2: '' });
+  const [treeChoice, setTreeChoice] = useState('Red Black Tree');
+  const [errors, setErrors] = useState({ city1: '', city2: '' });
+  const [runTime, setRunTime] = useState('');
 
   //error handling function to catch for the errors in the 2 inputs of cities
   const validateInputs = () => {
     let valid = true;
-    const newErrors = { input1: '', input2: '' };
+    const newErrors = { city1: '', city2: '' };
 
     //check to make sure each input has a city in it
-    if (!input1.trim()) {
-      newErrors.input1 = 'Input cannot be empty.';
+    if (!city1.trim()) {
+      newErrors.city1 = 'Input cannot be empty.';
       valid = false;
     }
 
-    if (!input2.trim()) {
-      newErrors.input2 = 'Input cannot be empty.';
+    if (!city2.trim()) {
+      newErrors.city2 = 'Input cannot be empty.';
       valid = false;
     }
 
     //make sure that only letters and spaces are in the inputs
-    if (input1.trim() && /[^a-zA-Z\s]/.test(input1)) {
-      newErrors.input1 = 'Input can only contain letters.';
+    if (city1.trim() && /[^a-zA-Z\s]/.test(city1)) {
+      newErrors.city1 = 'Input can only contain letters.';
       valid = false;
     }
 
-    if (input2.trim() && /[^a-zA-Z\s]/.test(input2)) {
-      newErrors.input2 = 'Input can only contains letters.';
+    if (city2.trim() && /[^a-zA-Z\s]/.test(city2)) {
+      newErrors.city2 = 'Input can only contains letters.';
       valid = false;
     }
 
@@ -44,10 +47,34 @@ const UserInterface = () => {
   };
 
   //onClick function for when the calculate button is chosen
-  const handleCalculate = () => {
+  const handleCalculate = async () => {
     if (validateInputs()) {
-      // this is where the results will be pasted from the backend
-      setResult(`Results for ${input1} to ${input2}:`);
+      const currentStartTime = Date.now();
+      try {
+        // Send data to the backend
+        const response = await axios.post('http://localhost:8000/api/process', {
+          city1,
+          city2,
+          treeChoice
+        });
+
+        //calculate run time to get back from backend
+        const endTime = Date.now();
+        const elapsed = (endTime - currentStartTime) / 1000;
+
+        console.log('Start Time:', currentStartTime);
+        console.log('End Time:', endTime);
+        console.log('Elapsed Time (seconds):', elapsed);
+
+        // update the result box with the response from backend eventually
+        setResult(`${response.data.message}`);
+        setRunTime(`Run Time: ${elapsed.toFixed(4)} seconds`);
+
+      } catch (error) {
+        console.error('Error:', error);
+        setResult('An error occurred while processing your request.');
+        setRunTime('');
+      }
     }
   };
 
@@ -62,29 +89,29 @@ const UserInterface = () => {
         <div className="input-group left">
           <input
             type="text"
-            value={input1}
-            onChange={(e) => setInput1(e.target.value)}
+            value={city1}
+            onChange={(e) => setCity1(e.target.value)}
             placeholder="Enter First City"
           />
-          {errors.input1 && <p className="error-message">{errors.input1}</p>}
+          {errors.city1 && <p className="error-message">{errors.city1}</p>}
         </div>
         <div className="input-group right">
           <input
             type="text"
-            value={input2}
-            onChange={(e) => setInput2(e.target.value)}
+            value={city2}
+            onChange={(e) => setCity2(e.target.value)}
             placeholder="Enter Second City"
           />
-          {errors.input2 && <p className="error-message">{errors.input2}</p>}
+          {errors.city2 && <p className="error-message">{errors.city2}</p>}
         </div>
       </div>
       <div className="dropdown-container">
         <select
-          value={dropdownValue}
-          onChange={(e) => setDropdownValue(e.target.value)}
+          value={treeChoice}
+          onChange={(e) => setTreeChoice(e.target.value)}
         >
-          <option value="Option1">Red Black Tree</option>
-          <option value="Option2">B+ Tree</option>
+          <option value="Red Black Tree">Red Black Tree</option>
+          <option value="B+ Tree">B+ Tree</option>
         </select>
       </div>
       <button onClick={handleCalculate}>Calculate</button>
@@ -92,7 +119,7 @@ const UserInterface = () => {
         <div className="result-box">
           <p>{result}</p>
         </div>
-        <p className="run-time">Run Time</p>
+        <p className="run-time">{runTime}</p>
       </div>
     </div>
   );
