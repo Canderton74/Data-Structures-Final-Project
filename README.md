@@ -14,3 +14,11 @@
  ## Running the front end
 - To run the frontend, go to the terminal on pycharm and navigate to the "my-app" directory
 - run the command "npm start" and you should be directed to a url that runs the frontend
+
+  ## Updating from Main
+  - Whenever you pull from main, make sure to run 'npm install' in the terminal
+  - This command will update any dependencies in your package.json files automatically
+ 
+  ## Running the Backend
+  - Navigate to the backend directory in the repo
+  - In a different terminal than the frontend, run 'python backendServer.py' to start the backend
