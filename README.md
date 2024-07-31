@@ -18,7 +18,14 @@
  ## Updating from Main
   - Whenever you pull from main, make sure to run 'npm install' in the terminal
   - This command will update any dependencies in your package.json files automatically
+
+ ## Running the Backend - new way
+ - when you run 'npm start' in the 'my-app' directory, it now automatically runs the backend scripts for you
+ - now you only have to do 'npm start' to utilize application
+ - there is a connection in 'package.json' that allows the 'npm start' command to run a command to the backend file to start
  
-  ## Running the Backend
+  ## Running the Backend - old way
   - Navigate to the backend directory in the repo
   - In a different terminal than the frontend, run 'python backendServer.py' to start the backend
+
+
