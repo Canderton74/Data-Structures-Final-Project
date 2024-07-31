@@ -13,16 +13,16 @@ class RedBlackTree:
         self.TNULL = Node(None, 0)  # Sentinel node, color is black
         self.TNULL.color = 'black'
         self.root = self.TNULL
-        self.avg = 0;
-        self.total = 0;
-        self.total_cities = 0;
+        self.avg = 0
+        self.total = 0
+        self.total_cities = 0
 
     def insert(self, city):
         new_node = Node(city)
         new_node.left = self.TNULL
         new_node.right = self.TNULL
         new_node.parent = None
-        self.total += 1;
+        self.total += 1
 
         current = self.root
         parent = None
@@ -36,7 +36,7 @@ class RedBlackTree:
                 current = current.left
             else:
                 current = current.right
-        self.total_cities += 1;
+        self.total_cities += 1
         new_node.parent = parent
         if parent is None:
             self.root = new_node
@@ -156,7 +156,7 @@ class RedBlackTree:
                 current = current.left
             else:
                 current = current.right
-        return self.avg;
+        return self.avg
 
     def set_avg(self):
         self.avg = self.total/self.total_cities
@@ -183,4 +183,5 @@ def main():
 
     print(tree.search("New York"))
 
-main()
+if __name__ == "__main__":
+    main()
