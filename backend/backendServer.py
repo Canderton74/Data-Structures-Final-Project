@@ -1,10 +1,14 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import csv
+import subprocess
+import sys
 from RedBlackTree import RedBlackTree
 
 
 class RequestHandler(BaseHTTPRequestHandler):
+
+
 
     #collecting the input cities and tree choice from the front end in the POST function
     def do_POST(self):
@@ -60,6 +64,22 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.send_header('Content-type', 'application/json')
             self.end_headers()
             self.wfile.write(json.dumps({"error": "Invalid JSON"}).encode())
+
+    def do_GET(self):
+        if self.path == '/visualize':
+            try:
+                python_path = sys.executable
+                subprocess.Popen([python_path, 'visualization.py'])
+                self.send_response(200)
+                self.send_header('Content-type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "Visualization started"}).encode())
+            except Exception as e:
+                self.send_response(500)
+                self.send_header('Content-type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": str(e)}).encode())
 
     def do_OPTIONS(self):
         # CORS for between hosts

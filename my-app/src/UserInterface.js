@@ -15,6 +15,7 @@ const UserInterface = () => {
   const [runTime, setRunTime] = useState('');
   const [validCities, setValidCities] = useState([]);
   const [isCalculating, setIsCalculating] = useState(false);
+  const [calculationCompleted, setCalculationCompleted] = useState(false);
 
   // Fetch and parse CSV data from city file
   useEffect(() => {
@@ -65,6 +66,9 @@ const UserInterface = () => {
     if (validateInputs()) {
       //show the "Calculating..." text
       setIsCalculating(true);
+      setCalculationCompleted(false);
+      setResult('');
+      setRunTime('');
       const currentStartTime = Date.now();
       try {
         // Send data to the backend
@@ -85,6 +89,7 @@ const UserInterface = () => {
         // Update the result box with the response from backend eventually
         setResult(`${response.data.message}`);
         setRunTime(`Run Time: ${elapsed.toFixed(4)} seconds`);
+        setCalculationCompleted(true);
 
       } catch (error) {
         console.error('Error:', error);
@@ -94,6 +99,19 @@ const UserInterface = () => {
         //reset isCalculating so the "Calculating..." text disappears
         setIsCalculating(false);
       }
+    }
+  };
+
+  const handleVisualize = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/visualize');
+      if (response.data.status === 'Visualization started') {
+        alert('Visualization started successfully.');
+      } else {
+        alert('Failed to start visualization.');
+      }
+    } catch (error) {
+      alert('Error starting visualization.');
     }
   };
 
@@ -141,6 +159,11 @@ const UserInterface = () => {
         </div>
         <p className="run-time">{runTime}</p>
       </div>
+      {calculationCompleted && (
+        <div className="visualize-container">
+          <button className="visualize-button" onClick={handleVisualize}>Visualize</button>
+        </div>
+      )}
     </div>
   );
 };
