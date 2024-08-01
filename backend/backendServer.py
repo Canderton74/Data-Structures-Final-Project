@@ -2,6 +2,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import csv
 from RedBlackTree import RedBlackTree
+from b_plus_tree import b_plus_tree
 from ProbabilityCalculator import *
 
 
@@ -26,7 +27,8 @@ class RequestHandler(BaseHTTPRequestHandler):
             # create tree based on type that is chosen
             if tree_choice == 'Red Black Tree':
                 tree = RedBlackTree()
-            #else statement for the B+ Tree
+            else:
+                tree = b_plus_tree(2, 2)
 
             count = 0
             #insert each accident from the dataset

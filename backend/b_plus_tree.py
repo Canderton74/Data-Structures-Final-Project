@@ -198,4 +198,5 @@ def main():
 
 	print(tree.search("New York"))
 
-main()
+if __name__ == "__main__":
+	main()
