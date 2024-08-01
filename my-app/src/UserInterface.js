@@ -102,18 +102,6 @@ const UserInterface = () => {
     }
   };
 
-  const handleVisualize = async () => {
-    try {
-      const response = await axios.get('http://localhost:8000/visualize');
-      if (response.data.status === 'Visualization started') {
-        alert('Visualization started successfully.');
-      } else {
-        alert('Failed to start visualization.');
-      }
-    } catch (error) {
-      alert('Error starting visualization.');
-    }
-  };
 
   // Setting up the organization of the page using the css file
   return (
@@ -159,11 +147,6 @@ const UserInterface = () => {
         </div>
         <p className="run-time">{runTime}</p>
       </div>
-      {calculationCompleted && (
-        <div className="visualize-container">
-          <button className="visualize-button" onClick={handleVisualize}>Visualize</button>
-        </div>
-      )}
     </div>
   );
 };
