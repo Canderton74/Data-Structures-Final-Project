@@ -122,13 +122,12 @@ button {
 /* styling for the error handling messages */
 .error-message {
   color: red;
-  font-size: 12px;
+  font-size: 10px;
   position: absolute;
   bottom: -20px;
   left: 0;
   width: 100%;
   text-align: left;
-  margin-top: 5px;
 }
 
 /*styling for the run time text under results */
