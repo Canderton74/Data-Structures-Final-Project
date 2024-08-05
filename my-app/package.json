@@ -17,7 +17,7 @@
   "scripts": {
     "start": "concurrently \"npm run start-frontend\" \"npm run start-backend\"",
     "start-frontend": "react-scripts start",
-    "start-backend": "cd ../backend && python backendServer.py",
+    "start-backend": "cd ../backend && python3 backendServer.py",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
